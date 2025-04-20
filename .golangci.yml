@@ -1,152 +1,168 @@
+version: '2'
 run:
-  go: '1.21'
-
+  go: '1.23'
 linters:
   enable:
-  - asasalint
-  - asciicheck
-  - bidichk
-  - bodyclose
-  - containedctx
-  - contextcheck
-  - decorder
-  - dogsled
-  - dupword
-  - durationcheck
-  - err113
-  - errcheck
-  - errchkjson
-  - errname
-  - errorlint
-  - exhaustive
-  - exportloopref
-  - fatcontext
-  - forbidigo
-  - forcetypeassert
-  - gci
-  - ginkgolinter
-  - gocheckcompilerdirectives
-  - gochecknoinits
-  - gochecksumtype
-  - gocritic
-  - godot
-  - gofmt
-  - gofumpt
-  - goheader
-  - goimports
-  - gomodguard
-  - goprintffuncname
-  - gosec
-  - gosimple
-  - gosmopolitan
-  - govet
-  - grouper
-  - importas
-  - inamedparam
-  - ineffassign
-  - interfacebloat
-  - ireturn
-  - loggercheck
-  - makezero
-  - mirror
-  - misspell
-  - musttag
-  - nakedret
-  - nestif
-  - nilerr
-  - nilnil
-  - noctx
-  - nolintlint
-  - nosprintfhostport
-  - perfsprint
-  - prealloc
-  - predeclared
-  - promlinter
-  - protogetter
-  - reassign
-  - revive
-  - rowserrcheck
-  - sloglint
-  - spancheck
-  - sqlclosecheck
-  - staticcheck
-  - stylecheck
-  - tagalign
-  - tagliatelle
-  - tenv
-  - testableexamples
-  - testifylint
-  - thelper
-  - typecheck
-  - unconvert
-  - unparam
-  - unused
-  - usestdlibvars
-  - wastedassign
-  - whitespace
-  - zerologlint
-  disable:
-  - cyclop
-  - depguard
-  - dupl
-  - exhaustruct
-  - funlen
-  - gochecknoglobals
-  - gocognit
-  - goconst
-  - gocyclo
-  - godox
-  - gomnd
-  - gomoddirectives
-  - lll
-  - maintidx
-  - nlreturn
-  - nonamedreturns
-  - paralleltest
-  - testpackage
-  - tparallel
-  - varnamelen
-  - wrapcheck
-  - wsl
-
-linters-settings:
-  gci:
-    sections:
-    - standard
-    - default
-    - prefix(github.com/twpayne/go-xxtea)
-  gofumpt:
-    extra-rules: true
-    module-path: github.com/twpayne/go-xxtea
-  goimports:
-    local-prefixes: github.com/twpayne/go-xxtea
-  govet:
-    disable:
-    - fieldalignment
-    - shadow
-    enable-all: true
-  ireturn:
-    allow:
-    - anon
-    - empty
-    - error
-    - stdlib
-  misspell:
-    locale: US
-  stylecheck:
-    checks:
-    - all
-
-issues:
-  include:
-  - EXC0011 # include issues about comments from `stylecheck`
-  exclude-rules:
-  - linters:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - containedctx
+    - contextcheck
+    - decorder
+    - dogsled
+    - dupword
+    - durationcheck
     - err113
-    text: do not define dynamic errors, use wrapped static errors instead
-  - linters:
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+    - fatcontext
     - forbidigo
-    path: ^cmd/
-  - linters:
+    - forcetypeassert
+    - ginkgolinter
+    - gocheckcompilerdirectives
+    - gochecknoinits
+    - gochecksumtype
+    - gocritic
+    - godot
+    - goheader
+    - gomodguard
+    - goprintffuncname
+    - gosec
+    - gosmopolitan
+    - grouper
+    - importas
     - inamedparam
-    path: _test\.go$
+    - interfacebloat
+    - ireturn
+    - loggercheck
+    - makezero
+    - mirror
+    - misspell
+    - musttag
+    - nakedret
+    - nestif
+    - nilerr
+    - nilnil
+    - noctx
+    - nolintlint
+    - nosprintfhostport
+    - perfsprint
+    - prealloc
+    - predeclared
+    - promlinter
+    - protogetter
+    - reassign
+    - revive
+    - rowserrcheck
+    - sloglint
+    - spancheck
+    - sqlclosecheck
+    - staticcheck
+    - tagalign
+    - tagliatelle
+    - testableexamples
+    - testifylint
+    - thelper
+    - unconvert
+    - unparam
+    - usestdlibvars
+    - wastedassign
+    - whitespace
+    - zerologlint
+    - copyloopvar
+    - canonicalheader
+    - exptostd
+    - funcorder
+    - gomoddirectives
+    - iface
+    - intrange
+    - nilnesserr
+    - recvcheck
+    - usetesting
+  disable:
+    - cyclop
+    - depguard
+    - dupl
+    - exhaustruct
+    - funlen
+    - gochecknoglobals
+    - gocognit
+    - goconst
+    - gocyclo
+    - godox
+    - gomoddirectives
+    - lll
+    - maintidx
+    - mnd
+    - nlreturn
+    - nonamedreturns
+    - paralleltest
+    - testpackage
+    - tparallel
+    - varnamelen
+    - wrapcheck
+    - wsl
+  settings:
+    govet:
+      disable:
+        - fieldalignment
+        - shadow
+      enable-all: true
+    ireturn:
+      allow:
+        - anon
+        - empty
+        - error
+        - stdlib
+    misspell:
+      locale: US
+    staticcheck:
+      checks:
+        - all
+  exclusions:
+    generated: lax
+    presets:
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - err113
+        text: do not define dynamic errors, use wrapped static errors instead
+      - linters:
+          - forbidigo
+        path: ^cmd/
+      - linters:
+          - inamedparam
+        path: _test\.go$
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/twpayne/go-xxtea)
+    gofumpt:
+      module-path: github.com/twpayne/go-xxtea
+      extra-rules: true
+    goimports:
+      local-prefixes:
+        - github.com/twpayne/go-xxtea
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

@@ -23,7 +23,7 @@ var (
 func TestEncryptDecrypt(t *testing.T) {
 	t.Parallel()
 	r := rand.New(rand.NewPCG(*seed1, *seed2)) //nolint:gosec
-	for i := 0; i < *ntests; i++ {
+	for i := range *ntests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			c := xxtea.NewCipher(
 				xxtea.WithByteOrder(randomByteOrder(r)),
@@ -43,7 +43,7 @@ func TestEncryptDecrypt(t *testing.T) {
 func TestEncryptDecryptInPlace(t *testing.T) {
 	t.Parallel()
 	r := rand.New(rand.NewPCG(*seed1, *seed2)) //nolint:gosec
-	for i := 0; i < *ntests; i++ {
+	for i := range *ntests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			c := xxtea.NewCipher(
 				xxtea.WithByteOrder(randomByteOrder(r)),
@@ -87,7 +87,7 @@ func TestUnsupported(t *testing.T) {
 func TestBytesToUint32s(t *testing.T) {
 	t.Parallel()
 	r := rand.New(rand.NewPCG(*seed1, *seed2)) //nolint:gosec
-	for i := 0; i < *ntests; i++ {
+	for i := range *ntests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			uint32s := randomUint32s(r, r.IntN(16))
 			byteOrder := randomByteOrder(r)

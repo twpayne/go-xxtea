@@ -58,6 +58,7 @@ func WithRoundsFunc(roundsFunc RoundsFunc) CipherOption {
 	}
 }
 
+// NewCipher returns a new Cipher with the given options.
 func NewCipher(options ...CipherOption) *Cipher {
 	c := &Cipher{
 		byteOrder:  binary.LittleEndian,
@@ -91,10 +92,10 @@ func (c *Cipher) DecryptInPlace(v []uint32) error {
 	}
 	rounds := c.roundsFunc(len(v))
 	n := len(v)
-	sum := uint32(rounds * delta)
+	sum := uint32(rounds * delta) //nolint:gosec
 	y := v[0]
 	var z uint32
-	for i := 0; i < rounds; i++ {
+	for range rounds {
 		e := int((sum >> 2) & 3)
 		for p := n - 1; p > 0; p-- {
 			z = v[p-1]
@@ -134,10 +135,10 @@ func (c *Cipher) EncryptInPlace(v []uint32) error {
 	sum := uint32(0)
 	var y uint32
 	z := v[n-1]
-	for i := 0; i < rounds; i++ {
+	for range rounds {
 		sum += delta
 		e := int((sum >> 2) & 3)
-		for p := 0; p < n-1; p++ {
+		for p := range n - 1 {
 			y = v[p+1]
 			v[p] += c.mx(sum, y, z, p, e)
 			z = v[p]
